@@ -1,0 +1,43 @@
+﻿<Window x:Class="FSWPrism.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FSWPrism"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance Type={x:Type local:MainWindowViewModel}, IsDesignTimeCreatable=False}"
+        Title="MainWindow"
+        Height="450" 
+        Width="800">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ToolBarTray>
+            <ToolBar>
+                <Button Content="Start" Command="{Binding StartCommand}"/>
+                <Button Content="Stop" Command="{Binding StopCommand}"/>
+                <Button Content="Select path" Command="{Binding SelectPathCommand}"/>
+                <Separator />
+                <Ellipse Height="10" Width="10" Margin="12,0" ToolTip="Green if file system background service is running.">
+                    <Ellipse.Style>
+                        <Style TargetType="{x:Type Ellipse}">
+                            <Setter Property="Fill" Value="Red"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding FSWServiceRunning}" Value="True">
+                                    <Setter Property="Fill" Value="Lime"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Ellipse.Style>
+                </Ellipse>
+                <Separator />
+                <TextBlock Text="Current path:" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                <TextBlock Text="{Binding CurrentPath}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+            </ToolBar>
+        </ToolBarTray>
+    </Grid>
+</Window>
